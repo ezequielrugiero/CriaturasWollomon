@@ -89,13 +89,28 @@ class Legendario inherits Dragón {
     }
 
     override method dañoQueEfectua(){
-      return  super() +  insigniaActual
+      return  super() +  insigniaActual.aumentarDañoDe(self)
     }
 
 }
 
 object insigniaRoja{
     method aumentarDañoDe(unDragon){
-        if(unDragon.)
+        if(unDragon.fuegoInterior()>20){
+            return 10
+        } else {return 5}
+
+    }
+}
+
+object insigniaAzul{
+    method aumentarDañoDe(unDragon){
+        return 8
+    }
+}
+
+object insigniaVerde{
+    method aumentarDañoDe(unDragon){
+        return 0
     }
 }

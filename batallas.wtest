@@ -1,0 +1,39 @@
+import wollomon.*
+describe "test de dragones" {
+
+  const shenron  = new Legendario(nivel = 50, insigniaActual=insigniaAzul, fuegoInterior=20)
+  const drako = new Legendario(nivel = 20, insigniaActual=insigniaRoja, fuegoInterior = 25)
+  const katerpi = new Bicho(nivel = 15)
+
+  const bolaDelDragon = new Ataques(valorDeDaños=40, nombre="Bola del Drago", tipo="Fuego")
+  const ransenga = new Ataques(valorDeDaños=40, nombre="Ransenga", tipo="energia")
+  const chidori = new Ataques(valorDeDaños=10, nombre="Chidori", tipo="electrico")
+
+  const yerba = new Ataques(valorDeDaños=5, nombre="Yerba", tipo="vegetal")
+  const enredadera = new Ataques(valorDeDaños=10, nombre="Enredadera", tipo="vegetal")
+  const espina = new Ataques(valorDeDaños=2, nombre="Espina", tipo="vegetal")
+
+
+  
+
+  test "Primeros Dragones" {
+    shenron.apreder(bolaDelDragon)
+    shenron.apreder(ransenga)
+    drako.apreder(bolaDelDragon)
+    drako.apreder(ransenga)
+
+    assert.equals(68, shenron.dañoQueEfectua())
+    assert.equals(75, drako.dañoQueEfectua())
+  }
+
+  test "Primer bicho"{
+    katerpi.apreder(yerba)
+    katerpi.apreder(enredadera)
+    katerpi.apreder(espina)
+
+    assert.equals(17, katerpi.dañoQueEfectua())
+
+  }
+
+
+}
