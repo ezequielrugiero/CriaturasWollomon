@@ -18,6 +18,18 @@ class Criatura {
     method puedeAtacar(){
         return puntoDeSalud > 10
     }
+
+    method recibirAtaqueDe(unaCriatur){
+        puntoDeSalud = puntoDeSalud - unaCriatur.dañoQueEfectua()
+    }
+
+    method atacarA(unaCriatura){
+        unaCriatura.recibirAtaqueDe(self) 
+        self.condicionAdicional()
+
+    }
+    
+    method condicionAdicional()
 }
 
 class Ataques {
@@ -33,6 +45,10 @@ class Ataques {
 class Bicho inherits Criatura {
     method dañoQueEfectua(){
       return  ataques.sum({a=>a.valorDeDaños()})
+    }
+
+    override method condicionAdicional(){
+        nivel = nivel + 10
     }
 
 }
@@ -53,13 +69,17 @@ class Dragón inherits Criatura {
     method sumejorAtaque(){
         return ataques.map({a=>a.valorDeDaños()}).max()
     }
+
+    override method condicionAdicional(){
+        nivel = nivel + (fuegoInterior/2)
+    }
 }
 
 class Eletrico inherits Criatura {
+    // es necesario que cree un objeto que le diga la humeda actual o se puedo pasar como variable?
     var humedadDelAmbiente
     
 
-    
     method estaCargado(){
         return self.humedadDelAmbiente() > 97
     }
@@ -78,6 +98,22 @@ class Eletrico inherits Criatura {
     method dañoQueEfectua(){
       return  ataques.first().valorDeDaños()
     }
+
+    method modificarnivel(){
+        nivel = nivel - 1
+    }
+
+    override method recibirAtaqueDe(unaCriatura){
+         super(unaCriatura) 
+         self.modificarnivel()
+    } 
+
+    override method condicionAdicional(){
+        if(self.estaCargado()){
+            nivel = nivel + 20
+        } 
+    }
+
 }
 
 class Legendario inherits Dragón {
