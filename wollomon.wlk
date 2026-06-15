@@ -30,6 +30,10 @@ class Criatura {
     }
     
     method condicionAdicional()
+
+    method aumentarSalud(unaCantidad){
+        puntoDeSalud = puntoDeSalud + unaCantidad
+    }
 }
 
 class Ataques {
