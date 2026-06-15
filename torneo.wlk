@@ -1,5 +1,5 @@
 import wollomon.*
-class Toneros{
+class Torneos{
     const participante = #{}
 
     method agregarA(unParticipante){
@@ -14,9 +14,11 @@ class Toneros{
     }
 
     method batallarEntreDos(priPnte, segPnte){
-        priPnte.atacarA(segPnte)
-    }
+      if(participante.contains(priPnte) and participante.contains(segPnte)){  
+        priPnte.atacarA(segPnte)}
+    else  self.error("aglunos de los combatiente no es participante")
 
+    }
     method participanteConMayorNivel(){
         return participante.max({p=>p.nivel()})
     }

@@ -1,0 +1,105 @@
+import wollomon.*
+import torneo.*
+describe "test de dragones" {
+
+  const shenron  = new Legendario(nivel = 50, insigniaActual=insigniaAzul, fuegoInterior=20)
+  const drako = new Legendario(nivel = 20, insigniaActual=insigniaRoja, fuegoInterior = 25)
+  const katerpi = new Bicho(nivel = 15)
+  const picachito = new Eletrico(nivel = 10, humedadDelAmbiente = 100)
+  const raichu = new Eletrico(nivel = 12, humedadDelAmbiente = 100)
+  const dragonit  = new Dragón(nivel = 20,  fuegoInterior=30)
+  const mantecafly = new Bicho(nivel = 5, puntoDeSalud = 100)
+  const wulbasaur = new Bicho(nivel = 35)
+  const escuartol = new Bicho(nivel = 70)
+
+
+//ataque de los dragones
+  const bolaDelDragon = new Ataques(valorDeDaños=40, nombre="Bola del Drago", tipo="Fuego")
+  const ransenga = new Ataques(valorDeDaños=40, nombre="Ransenga", tipo="energia")
+  const chidori = new Ataques(valorDeDaños=10, nombre="Chidori", tipo="electrico")
+  const aleteo = new Ataques(valorDeDaños=25, nombre="aleteo", tipo="viento")
+
+//ataque de los bichos
+  const yerba = new Ataques(valorDeDaños=5, nombre="Yerba", tipo="vegetal")
+  const enredadera = new Ataques(valorDeDaños=10, nombre="Enredadera", tipo="vegetal")
+  const espina = new Ataques(valorDeDaños=2, nombre="Espina", tipo="vegetal")
+
+
+//ataques de los eletrico
+const ataktruno = new Ataques(valorDeDaños=30, nombre="ataktruno", tipo="eletrico")
+const relampago = new Ataques(valorDeDaños=15, nombre="relampago", tipo="eletrico")
+const alterna = new Ataques(valorDeDaños=7, nombre="Alterna", tipo="eletrico")
+
+const copaDeFuego = new Torneos()
+
+  test "Primeros Dragones" {
+    shenron.apreder(bolaDelDragon)
+    shenron.apreder(ransenga)
+    drako.apreder(bolaDelDragon)
+    drako.apreder(ransenga)
+
+    assert.equals(68, shenron.dañoQueEfectua())
+    assert.equals(75, drako.dañoQueEfectua())
+  }
+
+  test "Primer bicho"{
+    katerpi.apreder(yerba)
+    katerpi.apreder(enredadera)
+    katerpi.apreder(espina)
+
+    assert.equals(17, katerpi.dañoQueEfectua())
+
+  }
+
+  test "Eléctrioc Vs Eléctrico"{
+    picachito.apreder(ataktruno)
+    picachito.apreder(relampago)
+    raichu.apreder(alterna)
+    picachito.atacarA(raichu)
+
+    assert.equals(170, raichu.puntoDeSalud())
+    assert.equals(11, raichu.nivel())
+    assert.equals(30, picachito.nivel())
+  }
+
+  test "Dragón vs Bicho"{
+    dragonit.apreder(chidori)
+    dragonit.apreder(aleteo)
+    
+    dragonit.atacarA(mantecafly)
+
+    assert.equals(45, mantecafly.puntoDeSalud())
+    assert.equals(5, mantecafly.nivel())
+    assert.equals(35, dragonit.nivel())
+  }
+
+  test "Torneo copa de Fuego"{
+    picachito.apreder(ataktruno)
+    picachito.apreder(relampago)
+    wulbasaur.apreder(enredadera)
+    wulbasaur.apreder(espina)
+    katerpi.apreder(yerba)
+    katerpi.apreder(enredadera)
+    katerpi.apreder(espina)
+    dragonit.apreder(chidori)
+    dragonit.apreder(aleteo)
+    shenron.apreder(bolaDelDragon)
+    shenron.apreder(ransenga)
+    copaDeFuego.agregarA(shenron)
+    copaDeFuego.agregarA(picachito)
+    copaDeFuego.agregarA(wulbasaur)
+    copaDeFuego.agregarA(katerpi)
+    copaDeFuego.agregarA(dragonit)
+    copaDeFuego.batallarEntreDos(wulbasaur, picachito)
+    copaDeFuego.batallaAutomatica()
+
+    assert.equals( 45, wulbasaur.nivel())
+    assert.equals(60, shenron.nivel())
+
+  }
+
+
+
+
+
+}
